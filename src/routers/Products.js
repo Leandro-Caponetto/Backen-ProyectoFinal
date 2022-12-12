@@ -1,11 +1,12 @@
 import { Router } from "express";
 
-import { ERRORS } from './const/errors.js';
-import {cartManager} from './Managers/index.js';
+//import { ERRORS } from './const/errors.js';
+
+
 
 
 const router = Router()
-const carts = []
+const products = []
 
 router.get('/', async (req, res) => {
 
@@ -13,16 +14,16 @@ router.get('/', async (req, res) => {
             const { limit} = req.query
 
 
-        const allProducts = await cartManager.getProducts();
+        const allProducts = await productManager.getProducts();
 
         if(!limit || limit < 1) {
-            return res.send({success: true, carts: allProducts});
+            return res.send({success: true, products: allProducts});
         }
 
         //const products = allProducts.slice(skip ?? 0, limit + skip);
         const products = allProducts.slice( 0, limit );
         
-        res.send({success: true, carts});
+        res.send({success: true, products});
     } catch (error) {
         console.log(error);
 
@@ -44,13 +45,13 @@ router.get('/:id', async (req, res) =>{
             })
         }
 
-       const cart = await cartManager.getProducById(id);
+       const product = await productManager.getProducById(id);
 
-       if(!cart){
+       if(!product){
         return res.send({success: false, error: "Producto no encontrado" });
        }
 
-       res.send({ success: true, carts });
+       res.send({ success: true, products });
 
     } catch (error) {
         console.log(error);
@@ -69,7 +70,7 @@ router.post('/', async (req, res) =>{
             });
         }
 
-       const saveCart = await postMessage.saveCart({
+       const saveProduct = await postMessage.saveProduct({
          title, 
          description,
          price, 
@@ -106,7 +107,7 @@ router.put('/:id', async(req, res) => {
         }
             const {title, description, price, code } = req.body;
 
-          const updatedCart =  await cartManager.update(id, {
+          const updatedProduct =  await productManager.update(id, {
             title,
              description,
               price,
@@ -114,7 +115,7 @@ router.put('/:id', async(req, res) => {
             });
 
 
-            res.send({success: true, product: updatedCart});
+            res.send({success: true, product: updatedProduct});
 
         
 
@@ -143,9 +144,9 @@ router.delete('/:id', async( req, res) => {
             });
         }    
 
-       const deletedCart = await cartManager.deleteProduct(id);
+       const deletedProduct = await productManager.deleteProduct(id);
 
-       res.send({success: true,  deleted: deletedCart})
+       res.send({success: true,  deleted: deletedProduct})
 
     } catch (error) {
 
@@ -158,4 +159,4 @@ router.delete('/:id', async( req, res) => {
         
     }
 })
-export default router
+export { router as ProductsRouter };

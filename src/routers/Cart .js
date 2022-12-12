@@ -1,36 +1,35 @@
 import { Router } from "express";
 
-import { ERRORS } from './const/errors.js';
-import {productManager} from './Managers/index.js';
+//import { ERRORS } from './const/errors.js';
 
 
 
 const router = Router()
-const products = []
+const carts = []
 
-router.get('/', async (req, res) => {
+/*router.get('/', async (req, res) => {
 
     try {
             const { limit} = req.query
 
 
-        const allProducts = await productManager.getProducts();
+        const allProducts = await cartManager.getProducts();
 
         if(!limit || limit < 1) {
-            return res.send({success: true, products: allProducts});
+            return res.send({success: true, carts: allProducts});
         }
 
         //const products = allProducts.slice(skip ?? 0, limit + skip);
-        const products = allProducts.slice( 0, limit );
+        const carts = allProducts.slice( 0, limit );
         
-        res.send({success: true, products});
+        res.send({success: true, carts});
     } catch (error) {
         console.log(error);
 
         res.send({success: false, error: "Ha ocurrido un error"})
     }
 
-});
+});*/
 
 router.get('/:id', async (req, res) =>{
     try {
@@ -45,13 +44,13 @@ router.get('/:id', async (req, res) =>{
             })
         }
 
-       const product = await productManager.getProducById(id);
+       const cart = await cartManager.getProducById(id);
 
-       if(!product){
+       if(!cart){
         return res.send({success: false, error: "Producto no encontrado" });
        }
 
-       res.send({ success: true, products });
+       res.send({ success: true, carts });
 
     } catch (error) {
         console.log(error);
@@ -70,14 +69,14 @@ router.post('/', async (req, res) =>{
             });
         }
 
-       const saveProduct = await postMessage.saveProduct({
+       const saveCart = await postMessage.saveCart({
          title, 
          description,
          price, 
          code,
         });
 
-       res.send({success: true, product: saveProduct});
+       res.send({success: true, cart: saveCart});
 
     } catch (error) {
         console.log(error);
@@ -107,7 +106,7 @@ router.put('/:id', async(req, res) => {
         }
             const {title, description, price, code } = req.body;
 
-          const updatedProduct =  await productManager.update(id, {
+          const updatedCart =  await cartManager.update(id, {
             title,
              description,
               price,
@@ -115,7 +114,7 @@ router.put('/:id', async(req, res) => {
             });
 
 
-            res.send({success: true, product: updatedProduct});
+            res.send({success: true, cart: updatedCart});
 
         
 
@@ -144,9 +143,9 @@ router.delete('/:id', async( req, res) => {
             });
         }    
 
-       const deletedProduct = await productManager.deleteProduct(id);
+       const deletedCart = await cartManager.deleteProduct(id);
 
-       res.send({success: true,  deleted: deletedProduct})
+       res.send({success: true,  deleted: deletedCart})
 
     } catch (error) {
 
@@ -159,4 +158,4 @@ router.delete('/:id', async( req, res) => {
         
     }
 })
-export default router
+export { router as CartRouter };

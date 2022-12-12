@@ -1,13 +1,15 @@
 import express from 'express';
 
-import productsRouter from './routers/products.router.js'
-import cartRouter from './routers/cart.router.js'
+
+import { ProductsRouter} from './routers/index.js';
 
 
 
 
 const app = express();
 
+
+const PORT = 8080;
 
 app.use(express.json())  //obligatorios
 app.use(express.urlencoded({extended: true}))  //obligatórios
@@ -16,15 +18,15 @@ app.use(express.static('public'))
 
 
 
-app.use('/api/products', productsRouter)
-app.use('/api/carts', cartRouter)
+app.use('/api/products', ProductsRouter)
+//app.use('/api/carts', CartRouter)
 app.use('/', (req, res) => res.send('Home'))
 
 
 
 
 
-const PORT = 8080;
+
 
 
 
