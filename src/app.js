@@ -1,7 +1,7 @@
 import express from 'express';
 
 
-import { ProductsRouter} from './routers/index.js';
+import { ProductsRouter, CartRouter} from './routers/index.js';
 
 
 
@@ -19,7 +19,7 @@ app.use(express.static('public'))
 
 
 app.use('/api/products', ProductsRouter)
-//app.use('/api/carts', CartRouter)
+app.use('/api/carts', CartRouter)
 app.use('/', (req, res) => res.send('Home'))
 
 
