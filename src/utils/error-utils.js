@@ -1,4 +1,4 @@
-import { ERRORS } from "../const/index.js"
+import { ERRORS } from "../consts/index.js"
 
 export class ValidationError extends Error {
     constructor(message){
