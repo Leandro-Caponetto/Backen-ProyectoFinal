@@ -1,0 +1,41 @@
+<h1 class="title text-center py-5">Productos</h1>
+
+
+
+{{#each productos}}
+
+
+<div class="container">
+    <div class="row row-cols-3 row-cols-md-6 g-2 ">
+
+
+            <div class="col tarjeta">
+                <div class="card shadow-lg p-2 mb-3  text-center">
+                    <img class="card-img-top" width="150" src="{{this.photo}} " alt="photo">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.title}}</h5>
+                            <p class="card-text">{{this.category}}</p>
+                            <a href="/product/{{this.title}}" class="btn btn-primary">Ver mas</a>
+                    </div>
+                </div>
+            </div>
+            
+
+       
+        
+    
+
+    </div>
+
+</div>
+    
+  
+    
+    
+{{/each}}
+
+
+<style>
+
+   
+</style>
