@@ -2,13 +2,14 @@
 
 
 
-{{#each productos}}
 
 
-    <div class="conatainer ">
-        <div class="header row">
-            <div class="products col-6 col-sm-3">
-                <div class="product">
+
+    <div class="container ">
+        <div class=" row">
+            {{#each productos}}
+            
+                <div class="product ">
                     <div class="image">
                         <img  src="{{this.photo}} " alt="{{this.title}}">
                     </div>
@@ -31,29 +32,53 @@
                         <a href="/product/{{this.title}}" >Ver mas</a>
                     </div>
                 </div>
-            </div>
+           
+            {{/each}}
+
         </div>
+    </div>
+    <div class="container">
+        
+    <form action="/product/table">
+     <div class="form-group col-md-3 mb-3 buscar">
+        Buscar: <input type="text" class="form-control" name="query" value="{{query}}"> <input type="submit" class="btn btn-success" value="Buscar">
+     </div>
+    </form>
+    
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Photo</th>
+            <th scope="col">Title</th>
+            <th scope="col">Category</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each result.docs}}
+        <tr>
+            <td><img width="30" src="{{this.photo}}"></td>
+            <th scope="row">{{this.title}}</th>
+            <td>{{this.category}}</td>
+            <td></td>
+            <td>
+                <div class="td">
+                
+                <a href="/product/delete/{{product._id}}" class="btn btn-danger">Delete</a>
+                <a href="/product/{{this.title}}" class="btn btn-primary">Ver mas</a>
+                 </div>
+            </td>
+            
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
     </div>
   
     
-    
-{{/each}}
 
-<div class="products__container">
-  {{#each productos}}
-    <div class="product__container">
-      <div class="product__category">
-        <span>{{this.category}}</span>
-      </div>
-      <div class="product__img--container">
-        <img src={{this.photo}} alt={{this.title}} />
-      </div>
-      <h4 class="product__price">PRICE: ${{this.price}}</h4>
-      <h3 class="product__title">{{this.title}}</h3>
-      <button>add to cart</button>
-    </div>
-  {{/each}}
-</div>
 
 
 <style>
@@ -64,11 +89,7 @@
         --sectionBack: #f7f6f9;
     }
 
-    *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+  
     body{
         background-color: var(--bodyBack);
         
@@ -76,33 +97,25 @@
 
     }
 
-    .conteiner{
-        width: 80vw;
-        height: 80vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-       
-    }
-    .header{
-        width: 100%;
-        text-align: center;
 
-
+    .row{
+        column-gap: 40px;
     }
-    .header h1{
+    
+    h1{
         font-size: 4em;
         text-transform: uppercase;
         color: var(--textColor);
     }
 
-    .products{
+    .product{
         width: 100%;
         height: 70%;
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 40px;
+        margin-top: 15px;
+        margin-bottom: 20px;
     }
 
     .product{
@@ -193,6 +206,21 @@
 
     .bay a:hover{
         transform: scale(1.1);
+    }
+
+    .table{
+        margin-top: 20px;
+    }
+    .td a{
+       
+        margin: 5px;
+    }
+
+    .buscar{
+        display: flex;
+        gap: 10px;
+
+        
     }
 
    
