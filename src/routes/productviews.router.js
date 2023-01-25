@@ -8,7 +8,7 @@ const router = Router()
 
 //chat
 router.get('/chat', async (req, res) => {
-    res.render('chat', {})
+    res.render('products/chat', {})
 })
 
 
@@ -16,19 +16,21 @@ router.post('/chat', async (req, res) => {
     const productNew = req.body
     console.log(productNew);
 
-    const productGenerated = new pokeModel(productNew);
+    const productGenerated = new productModel(productNew);
     await productGenerated.save();
 
     console.log(productGenerated);
 
-    res.redirect('/product/' + productGenerated.title)
+    res.redirect('products/chat' + productGenerated.title)
 })
 
 
 // Lista todos los productos
+
+
 router.get('/table', async (req, res) => {
 
-    const limit = req.query?.limit || 10
+    const limit = req.query?.limit || 30
     const page = req.query?.page || 1
     // sort en field y elegir (asc o desc)
     
@@ -47,10 +49,13 @@ router.get('/table', async (req, res) => {
     
     console.log(result);
 
-    res.render('index', {
+    res.render('products/index', {
         result,
         query: filter
     })
+    
+     
+    
 })
 
 
@@ -63,11 +68,11 @@ router.get('/delete/:id', async (req, res) => {
 
     console.log(deleted);
 
-    res.redirect('/product')
+    res.redirect('products/product')
 })
 
 router.get('/create', async (req, res) => {
-    res.render('create', {})
+    res.render('products/create', {})
 })
 
 //create
@@ -75,12 +80,12 @@ router.post('/create', async (req, res) => {
     const productNew = req.body
     console.log(productNew);
 
-    const productGenerated = new pokeModel(productNew);
+    const productGenerated = new productModel(productNew);
     await productGenerated.save();
 
     console.log(productGenerated);
 
-    res.redirect('/product/' + productGenerated.title)
+    res.redirect('products/product/' + productGenerated.title)
 })
 
 
@@ -91,7 +96,7 @@ router.get('/:title', async (req, res) => {
 
     const product = await productModel.findOne({title: title}).lean().exec()
 
-    res.render('one', { product })
+    res.render('products/one', { product })
 })
 
 
@@ -99,7 +104,7 @@ router.get('/:title', async (req, res) => {
 router.get('/', async(req, res) => {
     const productos = await productModel.find().lean().exec()
     
-    res.render('index', {
+    res.render('products/index', {
         productos
     })
 })

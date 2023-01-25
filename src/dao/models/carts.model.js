@@ -1,16 +1,27 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
-const productCollection = 'productos'
+const Schema = mongoose.Schema;
 
-const productSchema = new mongoose.Schema({
-    id:Number,
-    title: String,
-    category: String,
-    price: Number,
-    description: String,
-    photo: String
-})
+const cartsCollections = "Carts";
 
-const productModel = mongoose.model(productCollection, productSchema)
+const cartSchema = new Schema({
+  cart: {
+    type: [
+      {
+        product: {
+          type: Schema.Types.ObjectId,
+          ref: "Products",
+        },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+      },
+    ],
+    default: [],
+  },
+});
 
-export default productModel
+const cartsModel = mongoose.model(cartsCollections, cartSchema);
+
+export default cartsModel;
