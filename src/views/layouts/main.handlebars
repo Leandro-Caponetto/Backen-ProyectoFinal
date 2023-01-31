@@ -25,9 +25,10 @@
         <a class="nav-link active" aria-current="page" href="/product">Productos</a>
         <a class="nav-link "  href="/product/table">Table</a>
         <a class="nav-link" href="/product/create">Crear</a>
-        <a class="nav-link " href="/product/chat">Chat</a>
-        <a class="nav-link " href="/sessions/register">registrate</a>
-        <a class="nav-link " href="/sessions/logout">logout</a>
+        <a class="nav-link " href="/session/register">registrate</a>
+        <a class="nav-link " href="/session/logout">logout</a>
+        <a class="nav-link git " href="/session/login-github"><i class="fa-brands fa-github"></i></a>
+        <a class="nav-link google" href="/session/login-google"><i class="fa-brands fa-google-plus"></i></a>
 
       </div>
       
@@ -35,12 +36,15 @@
       <a class="nav-link cart text-center" href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-cart-shopping "></i></a>
     
       <i class="fa-solid fa-heart heart text-center"></i>
-      <a href="/sessions/login"  class="user text-cente" ><i class="fa-solid fa-user" ></i></a>
+      <a href="/session/login"  class="user text-cente" ><i class="fa-solid fa-user" ></i>{{photo.value}}</a>
       
     </div>
   </div>
   
 </nav>
+
+
+
 </header>
 <body>
     {{{ body }}}
@@ -308,7 +312,12 @@ h1 .fa-solid{
     bottom: 0;
     right: 130px;
 }
-
+.git:hover{
+  color: green;
+}
+.google:hover{
+  color: red;
+}
 
 </style>
 

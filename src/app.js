@@ -1,5 +1,4 @@
 import express from 'express'
-import __dirname from './utils.js'
 import handlebars from 'express-handlebars'
 import mongoose from 'mongoose'
 import { Server } from 'socket.io'
@@ -8,12 +7,15 @@ import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import passport from 'passport'
 import initializePassport from './config/passport.config.js'
+import __dirname from './utils.js'
 
 
 import productRouter from './routes/productapi.router.js'
 import productViews from './routes/productviews.router.js'
 import cartViews from './routes/cartsRuter.js'
 import sessionRouter from './routes/sessions.router.js'
+import jwtRouter from './routes/jwt.router.js'
+import morgan from 'morgan'
 
 
 
@@ -21,6 +23,15 @@ const app = express()
 const dbName = "myCompany"
 const MONGO_URI  = 'mongodb+srv://Leandro:t5wd0zdel8BQR2EB@cluster0.rdltew3.mongodb.net/?retryWrites=true&w=majority'
 
+// Configuramos el motor de plantillas
+app.engine('handlebars', handlebars.engine())
+app.set('views', __dirname + '/views')
+app.set('view engine', 'handlebars')
+
+
+app.use(morgan('dev'))
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
 
 // Configurar Session
 app.use(session({
@@ -47,23 +58,25 @@ function auth(req, res, next) {
     return res.status(401).render('errors/base', {error: 'No authenticado'})
 }
 
+app.get('/', (req, res) => res.send('OK'))
+app.get('/private', auth, (req, res) => {
+    res.json(req.session.user)
+})
+app.use('/session', sessionRouter)
+app.use('/jwt', jwtRouter)
+
 
 // Para traer la informacion de post como JSON
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
-// Configuramos el motor de plantillas
-app.engine('handlebars', handlebars.engine())
-app.set('views', __dirname + '/views')
-app.set('view engine', 'handlebars')
 
 // Configuramos la carpeta publica
 app.use(express.static( __dirname + '/public'))
 
 // Configuramos las rutas 
 app.use('/product', productViews)
-app.get('/private',auth,  (req, res) => res.json(req.session.user))
-app.use('/sessions', sessionRouter)
+app.use('/session', sessionRouter)
 app.use('/api/product', productRouter)
 app.use('/cart', cartViews)
 
