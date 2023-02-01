@@ -2,7 +2,9 @@ import { Router } from 'express'
 import mongoose from 'mongoose'
 import productModel from '../dao/models/productos.model.js'
 
+
 const router = Router()
+
 
 
 
@@ -108,6 +110,8 @@ router.get('/', async(req, res) => {
         productos
     })
 })
+
+
 
 
 

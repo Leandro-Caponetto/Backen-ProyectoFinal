@@ -18,7 +18,6 @@ import jwtRouter from './routes/jwt.router.js'
 import morgan from 'morgan'
 
 
-
 const app = express()
 const dbName = "myCompany"
 const MONGO_URI  = 'mongodb+srv://Leandro:t5wd0zdel8BQR2EB@cluster0.rdltew3.mongodb.net/?retryWrites=true&w=majority'
@@ -53,7 +52,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 function auth(req, res, next) {
-    if(req.session?.user) return next()
+    if(req.session.user) return next()
 
     return res.status(401).render('errors/base', {error: 'No authenticado'})
 }

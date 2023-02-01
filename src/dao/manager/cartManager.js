@@ -1,4 +1,4 @@
-import cartModel from "../models/carts.model.js";
+import cartModel from "../models/cart.model.js";
 import { NotFoundError } from "../../errors/errors.js";
 
 export class CartManager {
