@@ -1,3 +1,5 @@
+# Hi, I'm LEANDRO CAPONETTO! 👋
+
 # Backen Ecommers
 ## Run Locally
 
@@ -10,7 +12,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd Backen-ProyectoFinal
 ```
 
 Install dependencies
@@ -24,3 +26,9 @@ Start the server
 ```bash
   npm run start
 ```
+
+## Tech Stack
+
+**Client:** React, Redux, TailwindCSS
+
+**Server:** Node, Express
