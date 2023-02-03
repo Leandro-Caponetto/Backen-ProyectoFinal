@@ -6,7 +6,7 @@
 Clone the project
 
 ```bash
-  git clone [https://link-to-project](https://github.com/Leandro-Caponetto/Backen-ProyectoFinal.git)
+  git clone https://github.com/Leandro-Caponetto/Backen-ProyectoFinal.git
 ```
 
 Go to the project directory
