@@ -27,8 +27,8 @@ Start the server
   npm run start
 ```
 
-## Tech Stack
+## CODERHOUSE
 
-**Client:** React, Redux, TailwindCSS
+**Client:** CoderHouse
 
 **Server:** Node, Express
