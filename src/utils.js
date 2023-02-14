@@ -1,51 +1,52 @@
-import {fileURLToPath } from 'url'
-import {dirname} from 'path'
+import {fileURLToPath} from 'url'
+import { dirname } from 'path'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import passport from 'passport'
+import {JWT_PRIVATE_KEY, COOKIE_NAME_JWT } from './config/credentials.js'
 
-const PRIVATE_KEY = "CpderMyLeyu1289_asdjhk(From&Martin"
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
-/**
- * 
- * hashSync: toma el poassword y salt para "hashear"
- * genSaltSync: Genera un salt (Un string aleatorio)
- * El password no se puede volver a obtener por ningun metodo. IRREVERSIBLE
- * 
- */
-export const createHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+export const createHash = password => {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+}
 
-export const isValidPassoword = (user, password) => {
+export const isValidPassword = (user, password) => {
     return bcrypt.compareSync(password, user.password)
 }
 
-
-/**
- * Generamos el token
- */
-export const generateToken = (user) => {
-    const token = jwt.sign({user}, PRIVATE_KEY, {expiresIn: '24h'})
-
+export const generateToken = user => {
+    const token = jwt.sign({user}, JWT_PRIVATE_KEY, {expiresIn: '24h'})
     return token
 }
+
 export const authToken = (req, res, next) => {
-    const authHeader = req.headers.auth
-    if(!authHeader) {
-        return res.status(401).send({
-            error: "Not Auth"
-        })
-    }
+    const authToken = req.cookies.coderCookieToken
 
-    const token = authHeader.split(' ')[1] // Bearer ${TOKEN}
-    jwt.verify(token, PRIVATE_KEY, (error, credentials) => {
-        if(error) return res.status(403).send({error: 'Not authorized'})
-
+    if(!authToken) return res.status(401).render('errors/base', {error: 'No aAuth'})
+    jwt.verify(token, JWT_PRIVATE_KEY, (error, credentials) => {
+        if(error) return res.status(403).render('errors/base', {error: 'No authorized'})
         req.user = credentials.user
         next()
     })
 }
 
+// Tecnica para pasar cualquier strategia de registro (local o github) se validarian con JWT
+export const passportCall = (strategy) => {
+    return async (req, res, next) => {
+        passport.authenticate(strategy, function(err, user, info) {
+            if(err) return next(err)
+            if(!user) return res.status(401).render('errors/base', {error: info.messages ? info.messages : info.toString()})
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+            req.user = user
+            next()
+        })(req, res, next)
+    }
+}
+
+export const extractCookie = req => {
+    return (req && req.cookies) ? req.cookies[COOKIE_NAME_JWT] : null
+}
 
 export default __dirname

@@ -4,16 +4,16 @@
     <div class="card mb-3 shadow-lg p-3 mb-5 bg-body-tertiary rounded border-primary-subtle" style="max-width: 540px;">
         <div class="row g-0 text-center p-2">
             <div class="col-m-6 text-center">
-                 <img class="card-img-top"  src="{{product.photo}}">
+                 <img class="card-img-top"  src="{{products.photo}}">
             </div>
             <div class="class="col-md-8">
-                <h5 class="card-title">{{product.title}}</h5>
-                <p class="card-text">{{product.category}}</p>
-                <p class="card-text">{{product.description}}</p>
-                <p class="card-text">${{product.price}}</p>
+                <h5 class="card-title">{{products.title}}</h5>
+                <p class="card-text">{{products.category}}</p>
+                <p class="card-text">{{products.description}}</p>
+                <p class="card-text">${{products.docs.price}}</p>
                 
-                <a href="/product/delete/{{product._id}}" class="btn btn-danger">Delete</a>
-                <a href="/product/{{product._id}}" value={{product._id}} class="btn btn-primary">Agrear</a>
+                <a href="/products/delete/{{products._id}}" class="btn btn-danger">Delete</a>
+                <a href="/products/{{products._id}}" value={{product._id}} class="btn btn-primary"><i class="fa-solid fa-cart-shopping "></i>  Add</a>
             </div>
             
         </div>

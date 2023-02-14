@@ -1,111 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+
+    <title>TOPSHOP</title>
 </head>
 
-<header>       
-        
-<nav class="navbar navbar-expand-lg  bg-warning-subtle   shadow p-3 mb-2 bg-body-tertiary  ">
-  <div class="container-fluid  bg-warning text-dark">
-    <a class="navbar-brand fs-3 fw-bold" href="#">TOP SHOP</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-center text-center" id="navbarNavAltMarkup">
-      <div class="navbar-nav text-uppercase ">
-        
-        <a class="nav-link active" aria-current="page" href="/product">Productos</a>
-        <a class="nav-link "  href="/product/table">Table</a>
-        <a class="nav-link" href="/product/create">Crear</a>
-        <a class="nav-link " href="/session/register">registrate</a>
-        <a class="nav-link " href="/session/logout">logout</a>
-        
-       
-        <a class="nav-link git " href="/session/login-github"><i class="fa-brands fa-github"></i></a>
-        <a class="nav-link google" href="/session/login-google"><i class="fa-brands fa-google-plus"></i></a>
-
-      </div>
-      
-  
-      <a class="nav-link cart text-center" href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-cart-shopping "></i></a>
-    
-      <i class="fa-solid fa-heart heart text-center"></i>
-      <a href="/session/login"  class="user text-cente" ><i class="fa-solid fa-user" ></i></a>
-      
-    </div>
-  </div>
-  
-</nav>
-
-
-  {{user.usermame}}
-
-</header>
 <body>
-    {{{ body }}}
 
+ 
 
-
-    
-<!-- Modal -->
-<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog ">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Cart  <i class="fa-solid fa-cart-shopping"></i></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-       <table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Photo</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each carts}}
-        <tr>
-            <td><img width="30" src="{{this.productos.photo}}"></td>
-            <th scope="row">{{this.productos.title}}</th>
-            <td>${{this.productos.price}}</td>
-            <td><a href="/product/delete/{{product.productos._id}}" class="btn btn-danger">Delete</a></td>
-            
-        </tr>
-        {{/each}}
-    </tbody>
-
-</table>
-
-
-
-
-
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-danger cart__total--btn">vaciar carrito</button>
-        <button class="btn btn-primary cart__total--btn">confirmar compra</button>
-      </div>
     </div>
-  </div>
-</div>
+    <nav class="navbar navbar-expand-lg navbar-light p-3 mb-2 bg-body-tertiary ">
+        <a class="navbar-brand shop" href="/">TOPSHOP</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center text-center" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto text-uppercase justify-content-center text-center">
+                {{#if user }}
+                <li class="nav-item  text-center">
+                    <a class="nav-link" href="/products">Products <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item  text-center">
+                    <a class="nav-link" href="/session/register ">Register <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item  text-center">
+                    <a class="nav-link" href="/products/create">Create<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item text-center">
+                        <a class="nav-link" href="/session/logout">Logout</a>
+                </li>
+                
+                {{/if}}
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                {{#if user }}
+                <ul class="navbar-nav mr-auto">
+                     <li class="nav-item active text-dark">
+                        
+                     </li>
+                    <li class="nav-item active"></li>
+
+                        <a class="nav-link userName" href="#">{{ user.first_name }} <span class="user">({{ user.role}}, {{user.social}})</span> </a>
+                    </li>
+                    <div class="icon">
+                        <a href="/session/login"><i class="fa-solid fa-user" ></i></a>
+                      <li class="nav-item active">
+                        <a class="nav-link cart " href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-cart-shopping "></i></a>
+                      </li>
+
+                    </div>
+                </ul>
+
+                {{/if}}
+            </form>
+        </div>
+    </nav>
 
 
-<div class="chatear">
-  <a href="/product/chat"><i class="fa-sharp fa-solid fa-comments"></i></a>
-  
-</div>
+    <div class="container">
+        {{{body}}}
 
+    </div>
+    
 <div class=" ">
 
   <footer class="footer text-center text-lg-start text-white">
@@ -205,124 +174,57 @@
 
 </div>
 
-
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script> 
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
-
-
-<script src="/js/products.js"></script>
-
-
 
 
 
 <style>
-  :root{
-        --bodyBack: #ffeaed;
-        --textColor: #1b2741;
-        --starColor: #f67034;
-        --sectionBack: #f7f6f9;
-    }
+  body{
+    background-color: #f3f5f8;
+ 
+  }
 
-  
-    body{
-      background-color: var(--sectionBack);
-        
-      min-height: calc(100vh - 100px - 300px );
+  nav .shop{
+    color: #34495E;
+  }
 
-    }
-    .navbar{
-      position: static;
-    }
+
+ .top{
+    color: #34495E;
+  }
+  .user{
+    font-family:cursive;
+  }
+ 
+  .icon {
+    display: flex;
+    gap: 15px;
+    margin: 10px;
+    color: #1b2741;
+  }
+
+  .icon, a {
+    color: #34495E;
     
+  }
 
-    .cart{
-      position: relative;
-      left: 25%;
-    }
-    .heart{
-      position: relative;
-      left: 20%;
-      color: red;
-      animation-name: heart;
-      animation-duration: 3s;
-      animation-iteration-count: infinite ;
-    }
-     @keyframes heart{
-      
-      0%{
-        transform: scale(1.3);
-      }
-      40%{
-        transform: scale(1.4);
-      }
-      60%{
-        transform: scale(1);
-      }
-      80%{
-        transform: scale(.8);
-      }
-      
-     
-     }
-    .user{
-      position: relative;
-      left: 15%;
-      color: #1b2741;
-    }
+
 .footer{
   background-color: #1b2741;
 }
-.text, a{
-  text-decoration: none;
-}
-
-h1 .fa-solid{
-  position: relative;
-  left: 25px;
-  animation-name: cart;
-  animation-duration: 1.5s;
-  animation-iteration-count: infinite;
-}
-
-@keyframes cart{
-  0%{
-    transform: translateX(0);
-  }
-  100%{
-    transform: translateX(100%);
-  }
-}
-
-.modal-header .btn-close:hover{
-  color: red;
-}
-.fa-sharp{
-  font-size: 40px;
-  color: #f67034;
-  
-}
-.chatear {
-  padding: 10px;
-  
-    border-radius: 50%;
-   
-    width: 50px;
-    position: fixed;
-    z-index: 1;
-    bottom: 0;
-    right: 130px;
-}
-.git:hover{
-  color: green;
-}
-.google:hover{
-  color: red;
-}
-
 </style>
 
 </html>
+
 

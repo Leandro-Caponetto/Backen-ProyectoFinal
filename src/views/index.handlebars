@@ -1,0 +1,56 @@
+
+
+
+<div class="container">
+    
+
+    <div class="row justify-content-center">
+
+        
+        <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/clothes-apparel-big-sale-banner-for-facebook-design-template-32dffcab7597606310e4cbedfef0ef73_screen.jpg?ts=1626695536" class="d-block w-100" alt="...">
+    
+            
+                <div class="card text-center shadow" style="width: 28rem;">
+            <div class="card-header top">
+                TOPSHOP
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Products List</h5>
+                <p class="card-text">New Fashion Sale</p>
+
+                {{#if user }}
+                <a href="/products" class="btn btn-primary">Shop Now</a>
+                {{else}}
+                <a href="/session/login" class="btn btn-primary">Login</a>
+                <a href="/session/Register" class="btn btn-primary">Register</a>
+                {{/if}}
+
+
+            </div>
+    </div>
+    
+</div>
+
+</div>
+
+
+<style>
+  .card{
+    
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  a{
+    color: #1b2741;
+  }
+  .top{
+    font-size: 25px;
+    font-weight: 700;
+    color: #1b2741;
+  }
+  .btn{
+    background-color: #1b2741;
+    border: none;
+    font-weight: 600;
+  }
+</style>

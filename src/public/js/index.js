@@ -1,45 +1,28 @@
-const socket = io()
+const table = document.getElementById('productsTable')
 
-let user;
-let chatBox = document.getElementById('chatBox')
+const socket = io() 
 
-// Autenciar (Escribimos nombre)
-Swal.fire({
-    title: "Identificate",
-    input: "text",
-    inputValidator: value => {
-        return !value && 'Necesita un nombre'
-    },
-    allowOutsideClick: false
-}).then(result => {
-    // Seteamos el usuario
-    user = result.value
-    let txtUsername = document.getElementById('username')
-    txtUsername.innerHTML = user
-    socket.emit('authenticated', user)
-})
-
-// Evento de escribir en el campo de texto [1]
-chatBox.addEventListener('keyup', event => {
-    if(event.key == 'Enter') {
-        if(chatBox.value.trim().length > 0) {
-            socket.emit('message', {
-                user, 
-                message: chatBox.value
-            })
-            chatBox.value = ''
+socket.on('updatedProducts', data => {
+    table.innerHTML = 
+        `<tr>
+            <td><strong>Producto</strong></td>
+            <td><strong>Descripción</strong></td>
+            <td><strong>Precio</strong></td>
+            <td><strong>Código</strong></td>
+            <td><strong>Stock</strong></td>
+            <td><strong>Categoría</strong></td>
+        </tr>`;
+        for (product of data) {
+            let tr = document.createElement('tr')
+            tr.innerHTML=
+                        `   <td>${product.title}</td>
+                            <td>${product.description}</td>
+                            <td>${product.price}</td>
+                            <td>${product.code}</td>
+                            <td>${product.stock}</td>
+                            <td>${product.category}</td>
+                        `;
+            table.getElementsByTagName('tbody')[0].appendChild(tr);
         }
-    }
-})
-
-// CUando alguien emite un mensaje [2]
-socket.on('messageLogs', data => {
-    let log = document.getElementById('messageLogs')
-    
-    let messages = ''
-    data.forEach(message => {
-        messages += `<b>${message.user}</b>: ${message.message}<br>`
-    })
-
-    log.innerHTML = messages
-})
+           
+} )

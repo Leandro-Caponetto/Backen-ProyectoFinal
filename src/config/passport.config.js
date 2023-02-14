@@ -1,11 +1,15 @@
 import passport from 'passport'
 import local from 'passport-local'
+import jwt from 'passport-jwt'
 import UserModel from '../dao/models/user.model.js'
 import GitHubStrategy from 'passport-github2'
 import GoogleStrategy from 'passport-google-oauth2'
-import { createHash, isValidPassoword } from '../utils.js'
+import { createHash, isValidPassword, generateToken, extractCookie } from '../utils.js'
+import { JWT_PRIVATE_KEY } from '../config/credentials.js'
 
-
+const LocalStrategy = local.Strategy
+const JWTStrategy = jwt.Strategy
+const ExtractJWT = jwt.ExtractJwt
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -15,7 +19,7 @@ passport.deserializeUser(async(id, done) => {
    done(null, user);
 })
 
-const LocalStrategy = local.Strategy
+
 
 const initializePassport = () => {
 
@@ -80,54 +84,60 @@ const initializePassport = () => {
         }
     ))
 
-    passport.use('register', new LocalStrategy(
-        {
-            usernameField: 'email',
-            passwordField: 'password',
-            passReqToCallback: true
-        },
-        async (req, username, password, done) => {
-            const {first_name, last_name, email } = req.query
-            try {
-                const user = await UserModel.findOne({email: username})
-                if(user) {
-                    console.log('User already exits');
-                    return done(null, false)
-                }
-
-                const newUser = {
-                    first_name,
-                    last_name,
-                    email,
-                    password: createHash(password)
-                }
-                const result = await UserModel.create(newUser)
-                return done(null, result)
-            } catch (error) {
-                return done("Error to register " + error)
+    passport.use('register', new LocalStrategy({
+        passReqToCallback: true,
+        usernameField: 'email'
+    }, async (req, username, password, done) => {
+        try {
+            const user = await UserModel.findOne({email: username})
+            if(user) {
+                console.log('User already exits');
+                return (done, false)
             }
+
+            const result = await UserModel.create({
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                email: req.body.email,
+                age: req.body.age,
+                role: 'user',
+                social: 'local',
+                password: createHash(password)
+            })
+
+            return done(null, result)
+        } catch (error) {
+            return done("[LOCAL] Error en registro " + error)
         }
-    ))
-
-    passport.use('login', new LocalStrategy(
-        { usernameField: 'email'},
-        async(username, password, done) => {
-            try {
-                const user = await UserModel.findOne({email: username}).lean().exec()
-                if(!user) {
-                    console.error('User donst exist');
-                    return done(null, false)
-                }
-
-                if(!isValidPassoword(user, password)) return done(null, false)
-
+    }))
+    passport.use('login', new LocalStrategy({
+        usernameField: 'email'
+    }, async (username, password, done) => {
+        try {
+            const user = await UserModel.findOne({email: username}).lean().exec()
+            if(!user) {
+                console.log('User dont exits');
                 return done(null, user)
-            } catch (error) {
-                return done(error)
             }
+
+            if(!isValidPassword(user, password)) return done(null, false)
+            
+            const token = generateToken(user)
+            user.token = token
+
+            return done(null, user)
+        } catch (error) {
+            
         }
-    ))
-    
+    }))
+
+    passport.use('jwt', new JWTStrategy({
+        jwtFromRequest: ExtractJWT.fromExtractors([extractCookie]),
+        secretOrKey: JWT_PRIVATE_KEY
+    }, async (jwt_payload, done) => {
+        done(null, jwt_payload)
+    }))
+
     passport.serializeUser((user, done) => {
         done(null, user._id)
     })

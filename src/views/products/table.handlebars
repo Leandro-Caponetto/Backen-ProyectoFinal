@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        {{#each result.docs}}
+        {{#each data}}
         <tr>
             <td><img width="30" src="{{this.photo}}"></td>
             <th scope="row">{{this.title}}</th>
@@ -25,4 +25,7 @@
         {{/each}}
     </tbody>
 </table>
+<div id="moving"></div>
 
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

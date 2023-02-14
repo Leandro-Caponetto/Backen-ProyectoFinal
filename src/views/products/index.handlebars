@@ -3,7 +3,7 @@
     <div class="container">
         <h2>Productos Table</h2>
 
-<form action="/product/table">
+<form action="/products/table">
     Buscar: <input type="text" name="query" value="{{query}}"> <input  type="submit" class="btn btn-success" value="Buscar" >
 </form>
 
@@ -23,7 +23,7 @@
             <th scope="row">{{this.title}}</th>
             <td>{{this.category}}</td>
             <td><a href="/product/delete/{{product._id}}" class="btn btn-danger">Delete</a></td>
-            <td> <a href="/product/{{this.title}}" class="btn btn-primary">Ver mas</a></td>
+            <td> <a href="/product/{{this.title}}" class="btn btn-primary">View</a></td>
         </tr>
         {{/each}}
     </tbody>
@@ -31,7 +31,7 @@
     </div>
     <div class="container ">
         <div class=" row">
-            {{#each productos}}
+            {{#each data.docs}}
             
                 <div class="product ">
                     <div class="image">
