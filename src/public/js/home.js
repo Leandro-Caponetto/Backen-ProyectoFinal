@@ -5,11 +5,11 @@ addForm.addEventListener("submit", async (e) => {
     const title = document.getElementById("title").value
     const description = document.getElementById("description").value
     const price = document.getElementById("price").value
-    const photo = document.getElementById("photo").value
+    const thumbnail = document.getElementById("thumbnail").value
     const stock = document.getElementById("stock").value
     const category = document.getElementById("category").value
 
-    const response = await fetch("https://fakestoreapi.com/products/" , {
+    const response = await fetch("http://localhost:8080/api/products" , {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -19,7 +19,7 @@ addForm.addEventListener("submit", async (e) => {
             title,
             description,
             price: +price,
-            photo,
+            thumbnail,
             stock: +stock,
             category
         })

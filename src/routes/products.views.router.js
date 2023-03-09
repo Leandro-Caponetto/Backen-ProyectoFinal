@@ -1,5 +1,5 @@
 import { Router } from "express";
-import ProductModel from "../dao/models/products.model.js"
+import { ProductService } from "../repository/index.js";
 
 const router = Router()
 
@@ -14,7 +14,7 @@ router.get('/', async(req, res) => {
         lean: true
     }
 
-    const data = await ProductModel.paginate({}, options)
+    const data = await ProductService.getPaginate({}, options)
     const user = req.session.user
     console.log(data)
 

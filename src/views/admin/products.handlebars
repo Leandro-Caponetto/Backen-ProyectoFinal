@@ -16,15 +16,14 @@
 
 
 
-<h1>Products</h1>
+<h1>Products</h1>  
+<form action="/product/table">
+    Buscar: <input type="text" name="query" value="{{query}}"> <input  type="submit" class="btn btn-success" value="Buscar" >
+</form
 <hr>
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">5</a></li>
-        <li class="page-item"><a class="page-link" href="#">10</a></li>
-        <li class="page-item"><a class="page-link" href="#">15</a></li>
-    </ul>
-</nav>
+
+
+
 <table id="productsTable" class="table table-striped">
     <thead>
         <tr>
@@ -42,7 +41,7 @@
             <td>{{this.description}}</td>
             <td>${{this.price}}</td>
           
-            <td> <a href="/products/{{this.title}}" class="btn btn-primary">Ver</a></td>
+            <td> <a href="/products/{{this.id}}" class="btn btn-primary">Ver</a></td>
         </tr>
         {{/each}}
     </tbody>
@@ -71,3 +70,4 @@
 </nav>
 
 <div id="moving"></div>
+

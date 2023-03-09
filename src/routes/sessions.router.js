@@ -1,6 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
-import { COOKIE_NAME_JWT } from '../config/credentials.js'
+import config from "../config/config.js";
+
 
 const router = Router()
 
@@ -30,7 +31,7 @@ router.post('/login', passport.authenticate('login', { failureRedirect: '/sessio
         social: req.user.social
     }
     
-    res.cookie(COOKIE_NAME_JWT, req.user.token).redirect('/')
+    res.cookie(config.jwtCookieName, req.user.token).redirect('/')
 })
 
 //LOGOUT
@@ -38,13 +39,48 @@ router.get('/logout', async (req, res) => {
     req.session.destroy(err => {
         if (err) return res.status(500).render('errors/base', { error: err })
 
-        res.clearCookie(COOKIE_NAME_JWT).redirect('/')
+        res.clearCookie(config.jwtCookieName).redirect('/')
     })
 })
 
 router.get('/error', async (req, res) => {
     return res.status(500).render('errors/base', { error: "Error session" })
 })
+
+//-----------github----------------
+router.get(
+    '/login-github',
+    passport.authenticate('github', {scope: ['user:email']}),
+    async (req, res) => {}
+)
+
+router.get(
+    '/githubcallback',
+    passport.authenticate('github', {failureRedirect: '/session/login'}),
+    async(req, res) => {
+        console.log("Callback: ", req.user);
+        req.session.user = req.user
+        console.log(req.session);
+        res.redirect('/product')
+    }
+)
+//-------------google--------------
+router.get(
+    '/login-google',
+    passport.authenticate('google', {scope: ['email', 'profile']}),
+    async (req, res) => {}
+)
+
+router.get(
+    '/googlecallback',
+    passport.authenticate('google', {failureRedirect: '/session/login'}),
+    async(req, res) => {
+        console.log("Callback Google: ", req.user);
+        req.session.user = req.user
+        console.log(req.session);
+        res.redirect('/product')
+    }
+)
 
 
 export default router

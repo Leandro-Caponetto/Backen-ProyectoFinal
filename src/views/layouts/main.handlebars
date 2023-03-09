@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOPSHOP</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
 
-    <title>TOPSHOP</title>
 </head>
 
 <body>
@@ -56,9 +56,10 @@
                         <a class="nav-link userName" href="#">{{ user.first_name }} <span class="user">({{ user.role}}, {{user.social}})</span> </a>
                     </li>
                     <div class="icon">
-                        <a href="/session/login"><i class="fa-solid fa-user" ></i></a>
+                        <a href="/session/login"><i class="fa-solid fa-user"></i></a>
                       <li class="nav-item active">
-                        <a class="nav-link cart " href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-cart-shopping "></i></a>
+                        
+                          <a class="nav-link cart text-center" href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-cart-shopping "></i><span>0</span></a>
                       </li>
 
                     </div>
@@ -69,11 +70,61 @@
         </div>
     </nav>
 
+    
+
+
 
     <div class="container">
         {{{body}}}
 
     </div>
+
+
+    <!-- Modal -->
+<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title fs-5" id="exampleModalLabel">Cart  <i class="fa-solid fa-cart-shopping"></i></h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+      </div>
+      <div class="modal-body">
+       <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Photo</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each carts}}
+        <tr>
+            <td><img width="30" src="{{this.productos.photo}}"></td>
+            <th scope="row">{{this.productos.title}}</th>
+            <td>${{this.productos.price}}</td>
+            <td><a href="/product/delete/{{product.productos._id}}" class="btn btn-danger">Delete</a></td>
+            
+        </tr>
+        {{/each}}
+    </tbody>
+
+</table>
+
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger cart__total--btn">vaciar carrito</button>
+        <button class="btn btn-primary cart__total--btn">confirmar compra</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     
 <div class=" ">
 
@@ -88,13 +139,13 @@
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>Bestsellers</a>
+              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i> Bestsellers</a>
             </li>
             <li>
-              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>All books</a>
+              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i> All books</a>
             </li>
             <li>
-              <a href="#!" class="text-white"><i class="fas fa-user-edit fa-fw fa-sm me-2"></i>Our authors</a>
+              <a href="#!" class="text-white"><i class="fas fa-user-edit fa-fw fa-sm me-2"></i> Our authors</a>
             </li>
           </ul>
         </div>
@@ -106,16 +157,16 @@
 
           <ul class="list-unstyled">
             <li>
-              <a href="#!" class="text-white"><i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i>Supply</a>
+              <a href="#!" class="text-white"><i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i> Supply</a>
             </li>
             <li>
-              <a href="#!" class="text-white"><i class="fas fa-backspace fa-fw fa-sm me-2"></i>Returns</a>
+              <a href="#!" class="text-white"><i class="fas fa-backspace fa-fw fa-sm me-2"></i> Returns</a>
             </li>
             <li>
-              <a href="#!" class="text-white"><i class="far fa-file-alt fa-fw fa-sm me-2"></i>Regulations</a>
+              <a href="#!" class="text-white"><i class="far fa-file-alt fa-fw fa-sm me-2"></i> Regulations</a>
             </li>
             <li>
-              <a href="#!" class="text-white"><i class="far fa-file-alt fa-fw fa-sm me-2"></i>Privacy policy</a>
+              <a href="#!" class="text-white"><i class="far fa-file-alt fa-fw fa-sm me-2"></i> Privacy policy</a>
             </li>
           </ul>
         </div>
@@ -136,7 +187,7 @@
               <a href="#!" class="text-white">05765 NY</a>
             </li>
             <li>
-              <a href="#!" class="text-white"><i class="fas fa-briefcase fa-fw fa-sm me-2"></i>Send us a book</a>
+              <a href="#!" class="text-white"><i class="fas fa-briefcase fa-fw fa-sm me-2"></i> Send us a book</a>
             </li>
           </ul>
         </div>
@@ -148,13 +199,13 @@
 
           <ul class="list-unstyled text">
             <li>
-              <a href="#!" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i>Help in purchasing</a>
+              <a href="#!" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i> Help in purchasing</a>
             </li>
             <li>
-              <a href="#!" class="text-white"><i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i>Check the order status</a>
+              <a href="#!" class="text-white"><i class="fas fa-shipping-fast fa-fw fa-sm me-2"></i> Check the order status</a>
             </li>
             <li>
-              <a href="#!" class="text-white"><i class="fas fa-envelope fa-fw fa-sm me-2"></i>Join the newsletter</a>
+              <a href="#!" class="text-white"><i class="fas fa-envelope fa-fw fa-sm me-2"></i> Join the newsletter</a>
             </li>
           </ul>
         </div>
@@ -194,6 +245,77 @@
     background-color: #f3f5f8;
  
   }
+
+  
+  
+    .cart{
+      position: relative;
+      left: 25%;
+    }
+    .heart{
+      position: relative;
+      left: 20%;
+      color: red;
+      animation-name: heart;
+      animation-duration: 3s;
+      animation-iteration-count: infinite ;
+    }
+     @keyframes heart{
+      
+      0%{
+        transform: scale(1.3);
+      }
+      40%{
+        transform: scale(1.4);
+      }
+      60%{
+        transform: scale(1);
+      }
+      80%{
+        transform: scale(.8);
+      }
+      
+     
+     }
+    .user{
+      position: relative;
+      
+      color: #1b2741;
+    }
+.footer{
+  background-color: #1b2741;
+}
+.text, a{
+  text-decoration: none;
+}
+
+.btn-close{
+  font-weight: 700;
+  color: green;
+}
+h3 .fa-solid{
+  position: relative;
+  left: 25px;
+  animation-name: cart;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+}
+@keyframes cart{
+  0%{
+    transform: translateX(0);
+  }
+  100%{
+    transform: translateX(100%);
+  }
+}
+.modal-header .btn-close:hover{
+  color: red;
+}
+.fa-sharp{
+  font-size: 40px;
+  color: #f67034;
+  
+}
 
   nav .shop{
     color: #34495E;

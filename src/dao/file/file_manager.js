@@ -29,6 +29,13 @@ class FileManager {
         return data
     }
 
+    getOneByParam = async (param, value) => {
+        const data = await this.read()
+        const obj = data.find(d => d[param] == value)
+
+        return obj
+    }
+
     add = async (obj) => {
         const list = await this.read()
         const nextID = this.getNextID(list)

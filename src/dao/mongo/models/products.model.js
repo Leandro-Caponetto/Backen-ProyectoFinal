@@ -10,11 +10,12 @@ const productSchema = new mongoose.Schema({
     status: Boolean,
     stock: Number,
     category: String,
-    photo: String,
+    thumbnails: Array,
 })
 
 mongoose.set("strictQuery", false)
 productSchema.plugin(mongoosePaginate)
-const productModel = mongoose.model(productCollection, productSchema)
 
-export default productModel
+const ProductModel = mongoose.model(productCollection, productSchema)
+
+export default ProductModel
