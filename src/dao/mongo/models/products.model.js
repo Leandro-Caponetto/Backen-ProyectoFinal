@@ -10,7 +10,7 @@ const productSchema = new mongoose.Schema({
     status: Boolean,
     stock: Number,
     category: String,
-    thumbnails: Array,
+    photo: String,
 })
 
 mongoose.set("strictQuery", false)

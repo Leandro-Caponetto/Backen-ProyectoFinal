@@ -1,10 +1,12 @@
 import config from '../config/config.js'
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 
 export let Cart
 export let Message
 export let Product
 export let User
+
+
 
 switch (config.persistence) {
     case 'FILE':

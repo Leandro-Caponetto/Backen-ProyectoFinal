@@ -3,6 +3,7 @@ import handlebars from "express-handlebars"
 import { Server } from "socket.io";
 import mongoose from "mongoose";
 import productRouter from "./routes/products.router.js"
+import productsRouter from "./routes/mockingproducts.router.js"
 import productViewsRouter from "./routes/products.views.router.js"
 import cartRouter from "./routes/cart.ruter.js"
 import chatRouter from "./routes/chat.router.js"
@@ -66,6 +67,7 @@ mongoose.connect(config.mongoURI, {
     app.use("/session", sessionRouter)
 
     app.use("/api/products", productRouter)
+    app.use("/api/mockingproducts", productsRouter)
     app.use("/api/carts", cartRouter)
     app.use("/api/chat", chatRouter)
 

@@ -1,11 +1,8 @@
-import {Router} from "express"
 import { ProductService } from "../repository/index.js"
 
 
 
-const router = Router()
-
-router.get("/", async (req, res) => {
+get("/", async (req, res) => {
     const products = await ProductService.get()
     const limit = req.query.limit || 5
     
@@ -13,25 +10,23 @@ router.get("/", async (req, res) => {
     
 })
 
-
-router.get("/view", async (req, res) => {
+get("/view", async (req, res) => {
     const products = await ProductService.get()
     res.render('realTimeProducts', {
         data: products
     })
 })
-
-router.get("/:id", async (req, res) => {
+get("/:id", async (req, res) => {
     const id = req.params.id
-    const product = await ProductService.findOne({_id: id})
+    const product = await ProductService.find({_id: id})
     res.json({
         product
     })
 })
 
-router.delete("/:pid", async (req, res) => {
+delete("/:pid", async (req, res) => {
     const id = req.params.pid
-    const productDeleted = await ProductService.deleteOne({_id: id})
+    const productDeleted = await ProductService.delete({_id: id})
 
     req.io.emit('updatedProducts', await ProductService.get());
     res.json({
@@ -41,7 +36,7 @@ router.delete("/:pid", async (req, res) => {
     })
 })
 
-router.post("/", async (req, res) => {
+post("/", async (req, res) => {
     try {
         const product = req.body
         if (!product.title) {
@@ -63,11 +58,11 @@ router.post("/", async (req, res) => {
     }
 })
 
-router.put("/:pid", async (req, res) => {
+put("/:pid", async (req, res) => {
     const id = req.params.pid
     const productToUpdate = req.body
 
-    const product = await ProductService.updateOne({
+    const product = await ProductService.update({
         _id: id
     }, productToUpdate)
     req.io.emit('updatedProducts', await ProductService.get());
@@ -82,9 +77,9 @@ router.put("/:pid", async (req, res) => {
 
 
 //delet
-router.get('/delete/:id', async (req, res) => {
+get('/delete/:id', async (req, res) => {
     const id = new mongoose.Types.ObjectId(req.params.id)
-    const deleted = await ProductService.deleteOne({ _id: id })
+    const deleted = await ProductService.delete({ _id: id })
 
     console.log(deleted);
 
@@ -92,11 +87,11 @@ router.get('/delete/:id', async (req, res) => {
 })
 
 //create
-router.get('/create', async (req, res) => {
+get('/create', async (req, res) => {
     res.render('products/create', {})
 })
 
-router.post('/create', async (req, res) => {
+post('/create', async (req, res) => {
     const productNew = req.body
     console.log(productNew);
 
@@ -109,26 +104,20 @@ router.post('/create', async (req, res) => {
 })
 //one
 
-router.get('/:title', async (req, res) => {
+get('/:title', async (req, res) => {
     const title = req.params.title
 
-    const product = await ProductService.findOne({title: title}).lean().exec()
+    const product = await ProductService.findOne({title: title})
 
     res.render('products/one', { product })
 })
 
 
 
-router.get('/', async(req, res) => {
-    const productos = await ProductService.find().lean().exec()
+get('/', async(req, res) => {
+    const productos = await ProductService.find()
     
     res.render('products/index', {
         productos
     })
 })
-
-
-
-
-
-export default router

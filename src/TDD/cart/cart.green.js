@@ -1,20 +1,23 @@
-import { Router } from "express"
+
 import { CartService } from "../repository/index.js"
 
-const router = Router()
 
-router.get("/", async (req, res) => {
+// Solución del error  (green)
+
+
+get("/", async (req, res) => {
     const carts = await CartService.get()
     res.json({ carts })
 })
 
-router.post("/", async (req, res) => {
+post("/", async (req, res) => {
     const newCart = await CartService.add({})
 
     res.json({status: "Success", newCart})
 })
 
-router.delete("/:cid/product/:pid", async (req, res) => {
+
+delete("/:cid/product/:pid", async (req, res) => {
      const cartID = req.params.cid
      const productID = req.params.pid
 
@@ -29,9 +32,9 @@ router.delete("/:cid/product/:pid", async (req, res) => {
      await cart.save()
     
      res.json({status: "Success", cart})
- })
+})
 
- router.post("/:cid/product/:pid", async (req, res) => {
+post("/:cid/product/:pid", async (req, res) => {
      const cartID = req.params.cid
      const productID = req.params.pid
      const quantity= req.body.quantity || 1
@@ -53,6 +56,4 @@ router.delete("/:cid/product/:pid", async (req, res) => {
 
 
      res.json({status: "Success", cart})
- })
-
-export default router
+})

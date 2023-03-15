@@ -1,4 +1,4 @@
-import ProductModel from "./models/products.model.js.js";
+import ProductModel from "./models/products.model.js";
 
 export default class Product {
 
