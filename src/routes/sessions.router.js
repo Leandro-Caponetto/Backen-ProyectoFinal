@@ -1,7 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
 import config from "../config/config.js";
-import { generateProducts } from "../mocking/Mocking.js";
+
 
 const router = Router()
 
