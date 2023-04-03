@@ -9,7 +9,13 @@ const userSchema = new mongoose.Schema({
     age: Number,
     password: String,
     social: String,
-    role: String
+    role: String,
+    tickets: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'tickets'
+        }]
+    }
 })
 
 mongoose.set("strictQuery", false)

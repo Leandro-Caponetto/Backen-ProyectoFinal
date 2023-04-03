@@ -15,6 +15,8 @@ import passport from "passport";
 import cookieParser from "cookie-parser";
 import initializePassport from "./config/passport.config.js";
 import config from "./config/config.js";
+import ticketRouter from './routes/tickets.router.js';
+import userRouter from './routes/users.router.js';
 
 
 import __dirname from "./utils.js"
@@ -91,6 +93,8 @@ mongoose.connect(config.mongoURI, {
     app.use("/api/mockingproducts", productsRouter)
     app.use("/api/carts", cartRouter)
     app.use("/api/chat", chatRouter)
+    app.use('/api/users', userRouter)
+    app.use('/api/tickets', ticketRouter)
 
     app.use("/", (req, res) => {
         const user = req.session?.user || null

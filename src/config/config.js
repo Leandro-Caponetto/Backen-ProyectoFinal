@@ -7,5 +7,7 @@ export default {
     jwtCookieName: process.env.COOKIE_NAME_JWT,
     cookieSecret: process.env.COOKIE_SECRET,
     mongoURI: process.env.MONGO_URI,
-    mongoDbName: process.env.MONGO_DB_NAME
+    mongoDbName: process.env.MONGO_DB_NAME,
+    mailUser: process.env.MAIL_USER,
+    mailPass: process.env.MAIL_PASS
 }

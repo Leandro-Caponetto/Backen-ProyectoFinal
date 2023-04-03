@@ -1,7 +1,7 @@
 import {faker} from "@faker-js/faker"
 
 faker.locale = 'es'
-
+/*
 export const generateUser = () => {
 
     const numOfProducts = parseInt(faker.random.numeric(1, {bannedDigits: ['0'] }))
@@ -32,4 +32,4 @@ export const generateProduct = () => {
         id: faker.database.mongodbObjectId(),
         image: faker.image.image()
     }
-}
+}*/

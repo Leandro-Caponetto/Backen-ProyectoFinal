@@ -10,5 +10,6 @@ export default class UserDTO {
         this.password = user.password
         this.social = user.social
         this.role = user.role
+        this.tickets = user.tickets || []
     }
 }

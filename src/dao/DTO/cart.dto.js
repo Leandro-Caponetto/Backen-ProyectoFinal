@@ -1,4 +1,3 @@
-
 export default class CartDTO {
 
     constructor(cart) {
