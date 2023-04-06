@@ -18,12 +18,32 @@ import config from "./config/config.js";
 import ticketRouter from './routes/tickets.router.js';
 import userRouter from './routes/users.router.js';
 
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUiExpress from 'swagger-ui-express'
 
-import __dirname from "./utils.js"
+
+import __dirname from "./utils/index.js"
 import { passportCall } from "./utils.js"
 
 
 const app = express()
+
+
+
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.1',
+        info: {
+            title: "Documentacion de Leandro Caponetto !! 🌞",
+            description: "Esta es la doucmentacion de Leandro Caponetto 👽👽👽 "
+        }
+    },
+    apis: [`${__dirname}/../docs/**/*.yaml`]
+}
+
+const specs = swaggerJSDoc(swaggerOptions)
+app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
+
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
