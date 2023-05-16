@@ -34,8 +34,8 @@ const swaggerOptions = {
     definition: {
         openapi: '3.0.1',
         info: {
-            title: "Documentacion de Leandro Caponetto !! 🌞",
-            description: "Esta es la doucmentacion de Leandro Caponetto 👽👽👽 "
+            title: "Documentacion de Leandro Caponetto !!👋 🌞 ☠️",
+            description: "Esta es la doucmentacion de Leandro Caponetto 👽☠️👽 "
         }
     },
     apis: [`${__dirname}/../docs/**/*.yaml`]
